@@ -1,0 +1,81 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f); /* خلفية بألوان مشرقة */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.instructions {
+  width: 280px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.instructions h2 {
+  margin-top: 0;
+  color: #ff6f61; 
+  font-size: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  width: 450px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ff6f61;
+}
+
+#sentence {
+  font-size: 18px;
+  margin: 15px 0;
+  padding: 10px;
+  background: #fdf1ec;
+  border-radius: 8px;
+}
+
+#input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #ffb199;
+  margin-top: 10px;
+  resize: none;
+  outline: none;
+}
+
+.btn {
+  background: #ff6f61;
+  color: white;
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s,
+}

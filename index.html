@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="./app.js"></script>
+    <link  rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <body>
+  <div class="container">
+    <div class="instructions">
+     <h2>📖 How to Play</h2>
+      <p>1- Click <strong>Start</strong> to get a random sentence.</p>
+      <p>2- Type the sentence exactly in the text area.</p>
+      <p>3- Press <strong>Check</strong> or Enter to verify.</p>
+      <p>4- You have 30 seconds and only 3 attempts.</p>
+      <p>5- You win if you type it correctly before time runs out!</p>
+    </div>
+
+  <div class="card">
+    <h1>Typing Speed — Sentences</h1>
+
+    <div id="sentence">Press <strong>Start</strong> to get a sentence.</div>
+
+    <textarea id="input" placeholder="Type the sentence here..." rows="4" cols="50" disabled></textarea>
+
+    <div class="row" style="margin-top:10px">
+      <button id="startBtn" class="btn">Start</button>
+      <button id="checkBtn" class="btn" disabled>Check</button>
+      <button id="restartBtn" class="btn" disabled>Restart</button>
+    </div>
+
+    <div class="stats">
+        <div>⏳ Time left: <span id="time">—</span>s</div>
+        <div>🎯 Attempts: <span id="attempts">0</span>/3</div>
+    </div>
+
+    <audio controls>
+  <source src="losing.mp3" type="audio/mp3" />
+  <source src="winning.mp3" type="audio/mp3" />
+  <p>
+    Your browser doesn't support this audio file. Here is a
+    <a href="viper.mp3">link to the audio</a> instead.
+  </p>
+    </audio>
+
+
+    <div id="message"></div>
+  </div>
+</body>
+</html>
