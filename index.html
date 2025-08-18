@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script defer src="./app.js"></script>
-    <link  rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
 </head>
 <body>
-
-    <body>
   <div class="container">
-    <div class="instructions">
-     <h2>📖 How to Play</h2>
-      <p>1- Click <strong>Start</strong> to get a random sentence.</p>
-      <p>2- Type the sentence exactly in the text area.</p>
-      <p>3- Press <strong>Check</strong> or Enter to verify.</p>
-      <p>4- You have 30 seconds and only 3 attempts.</p>
-      <p>5- You win if you type it correctly before time runs out!</p>
-    </div>
+    <!-- Left: Instructions -->
+    <aside class="instructions">
+      <h2>How to Play 🎮</h2>
+      <p>1. Click <strong>Start</strong> to get a random sentence.</p>
+      <p>2. Type the sentence exactly in the box.</p>
+      <p>3. You have <strong>30 seconds</strong> and <strong>3 attempts</strong>.</p>
+      <p>4. Win if you type correctly before time ends!</p>
+    </aside>
 
-  <div class="card">
-    <h1>Typing Speed — Sentences</h1>
+    <!-- Right: Game -->
+    <main class="game">
+      <h1>⏳ Typing Speed Game</h1>
 
-    <div id="sentence">Press <strong>Start</strong> to get a sentence.</div>
+      <div id="sentence" class="sentence">Press Start to begin!</div>
 
-    <textarea id="input" placeholder="Type the sentence here..." rows="4" cols="50" disabled></textarea>
+      <textarea id="input" placeholder="Type here..." disabled></textarea>
 
-    <div class="row" style="margin-top:10px">
-      <button id="startBtn" class="btn">Start</button>
-      <button id="checkBtn" class="btn" disabled>Check</button>
-      <button id="restartBtn" class="btn" disabled>Restart</button>
-    </div>
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="checkBtn" disabled>Check</button>
+        <button id="restartBtn" disabled>Restart</button>
+      </div>
 
-    <div class="stats">
-        <div>⏳ Time left: <span id="time">—</span>s</div>
-        <div>🎯 Attempts: <span id="attempts">0</span>/3</div>
-    </div>
+      <div class="stats">
+        <p>⏰ Time left: <span id="time">—</span>s</p>
+        <div class="progress-bar">
+          <div id="progress"></div>
+        </div>
+        <p>🔁 Attempts: <span id="attempts">0</span>/3</p>
+      </div>
 
-    <audio controls>
-  <source src="losing.mp3" type="audio/mp3" />
-  <source src="winning.mp3" type="audio/mp3" />
-  <p>
-    Your browser doesn't support this audio file. Here is a
-    <a href="viper.mp3">link to the audio</a> instead.
-  </p>
-    </audio>
-
-
-    <div id="message"></div>
+      <div id="message" class="message"></div>
+    </main>
   </div>
 </body>
 </html>
