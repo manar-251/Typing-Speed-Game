@@ -74,7 +74,10 @@ textarea {
   resize: none;
   font-size: 16px;
 }
-
+textarea.error {
+  background-color: red;
+  color: white;
+}
 .controls button {
   margin: 5px;
   padding: 10px 20px;
@@ -122,3 +125,33 @@ textarea {
   margin-top: 15px;
 }
 
+.level-select {
+  display: none; /* hidden at first */
+  margin-bottom: 15px;
+}
+#level {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 2px solid #ff9800;
+  background: linear-gradient(135deg, #ffeb3b, #ffc107);
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+/* Hover effect */
+#level:hover {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: white;
+  transform: scale(1.08);
+  border-color: #ff5722;
+}
+
+/* Focus effect */
+#level:focus {
+  outline: none;
+  box-shadow: 0 0 12px rgba(255, 152, 0, 0.7);
+}

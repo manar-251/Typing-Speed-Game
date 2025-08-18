@@ -8,8 +8,8 @@
   <script defer src="app.js"></script>
 </head>
 <body>
+  
   <div class="container">
-    <!-- Left: Instructions -->
     <aside class="instructions">
       <h2>How to Play 🎮</h2>
       <p>1. Click <strong>Start</strong> to get a random sentence.</p>
@@ -18,9 +18,19 @@
       <p>4. Win if you type correctly before time ends!</p>
     </aside>
 
-    <!-- Right: Game -->
+
     <main class="game">
       <h1>⏳ Typing Speed Game</h1>
+
+       <div>
+      <div class="level-select" style="display:none;"></div>
+        <label for="level">Choose Level:</label>
+        <select id="level">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+  </select>
+    </div>
 
       <div id="sentence" class="sentence">Press Start to begin!</div>
 
@@ -37,7 +47,6 @@
         <div class="progress-bar">
           <div id="progress"></div>
         </div>
-        <p>🔁 Attempts: <span id="attempts">0</span>/3</p>
       </div>
 
       <div id="message" class="message"></div>

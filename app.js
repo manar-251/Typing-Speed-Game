@@ -1,39 +1,77 @@
-const sentences = [
-  "I like cats",
-  "She runs fast",
-  "We are happy today",
-  "The dog is very friendly",
-  "We went to the park after school",
-  "My brother loves to travel to new places",
-  "I have been studying English for three years now",
-  "They decided to build a treehouse in the backyard",
-  "The weather was perfect for a picnic in the park",
-  "He is planning to start his own business next year"
-];
+const sentences = {
+  easy: [
+    "I like cats",
+    "She runs fast",
+    "We are happy today",
+    "The dog is friendly",
+    "We went to the park"
+  ],
+  medium: [
+    "My brother loves to travel to new places",
+    "I have been studying English for three years now",
+    "They decided to build a treehouse in the backyard",
+    "The weather was perfect for a picnic in the park",
+    "He is planning to start his own business next year"
+  ],
+  hard: [
+    "The quick brown fox jumps over the lazy dog",
+    "While hiking through the dense forest, we got lost and had to find our way back",
+    "Despite the challenges, she managed to complete the marathon in record time",
+    "The intricate design of the ancient temple left us in awe and wonder",
+    "Programming requires patience, problem-solving, and continuous learning"
+  ]
+};
 
 let startTime, countdown;
-let timeLimit = 30;
-let timeLeft;
-let attempts = 0;
-let maxAttempts = 3;
+let timeLimit = 30; 
 let currentSentence = "";
+let selectedLevel = "medium"; 
+let timeLeft = timeLimit;
 
-// Elements
+// Elements We need
 const sentenceEl = document.getElementById("sentence");
 const inputEl = document.getElementById("input");
 const messageEl = document.getElementById("message");
-const attemptsEl = document.getElementById("attempts");
 const timeEl = document.getElementById("time");
 const progressEl = document.getElementById("progress");
 const startBtn = document.getElementById("startBtn");
 const checkBtn = document.getElementById("checkBtn");
 const restartBtn = document.getElementById("restartBtn");
-const winSound = new Audio('win.mp3');
-const loseSound = new Audio('lose.mp3');
+const levelSelector = document.getElementById("level");
 
-// Start Game
+// Sounds
+const winSound = new Audio('winning.mp3');
+const loseSound = new Audio('losing.mp3'); 
+
+// Level Change Event
+levelSelector.addEventListener("change", (e) => {
+  selectedLevel = e.target.value; // Update selected level
+  updateGameSettings();
+});
+
+// Update Game Settings Based on Level
+function updateGameSettings() {
+  if (selectedLevel === "easy") {
+    timeLimit = 60; // More time for Easy
+  } else if (selectedLevel === "medium") {
+    timeLimit = 30; // Default time for Medium
+  } else if (selectedLevel === "hard") {
+    timeLimit = 15; // Less time for Hard
+  }
+}
+startBtn.addEventListener("click", () => {
+  document.querySelector(".level-select").style.display = "block";
+});
+
+levelSelector.addEventListener("change", (e) => {
+  selectedLevel = e.target.value;
+  updateGameSettings();
+  startGame(); 
+});
+// Start of the Game
 function startGame() {
-  currentSentence = sentences[Math.floor(Math.random() * sentences.length)];
+  const levelSentences = sentences[selectedLevel]; 
+  currentSentence = levelSentences[Math.floor(Math.random() * levelSentences.length)];
   sentenceEl.textContent = currentSentence;
 
   inputEl.value = "";
@@ -42,8 +80,6 @@ function startGame() {
   restartBtn.disabled = false;
   startBtn.disabled = true;
 
-  attempts = 0;
-  attemptsEl.textContent = attempts;
   messageEl.textContent = "";
 
   timeLeft = timeLimit;
@@ -73,17 +109,21 @@ function checkSentence() {
     const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
     endGame(true, `✅ Correct! You win in ${timeTaken}s`);
   } else {
-    attempts++;
-    attemptsEl.textContent = attempts;
-    if (attempts >= maxAttempts) {
-      endGame(false, "❌ Too many attempts! You lose!");
-    } else {
-      messageEl.textContent = `❌ Wrong! Attempt: ${attempts}/${maxAttempts}`;
-    }
+    messageEl.textContent = `❌ Incorrect! Keep trying!`;
   }
 }
 
-// End Game
+// Highlight Errors
+inputEl.addEventListener("input", () => {
+  const userInput = inputEl.value.trim();
+  if (!currentSentence.startsWith(userInput)) {
+    inputEl.classList.add("error"); // Add red background for incorrect typing
+  } else {
+    inputEl.classList.remove("error"); // Remove red background for correct typing
+  }
+});
+
+// End of the Game
 function endGame(win, msg) {
   clearInterval(countdown);
   messageEl.textContent = msg;
@@ -91,8 +131,11 @@ function endGame(win, msg) {
   checkBtn.disabled = true;
   startBtn.disabled = false;
 
-  if (win) winSound.play();
-  else loseSound.play();
+  if (win) {
+    winSound.play(); 
+  } else {
+    loseSound.play(); 
+  }
 }
 
 // Restart
@@ -103,12 +146,11 @@ function restartGame() {
   checkBtn.disabled = true;
   restartBtn.disabled = true;
   startBtn.disabled = false;
-  attempts = 0;
-  attemptsEl.textContent = attempts;
   timeEl.textContent = "—";
   messageEl.textContent = "";
   progressEl.style.width = "100%";
   clearInterval(countdown);
+  inputEl.classList.remove("error"); 
 }
 
 // Events
