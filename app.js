@@ -23,12 +23,12 @@ const sentences = {
 };
 
 let startTime, countdown;
-let timeLimit = 30; 
+let timeLimit = 30; // Default time limit
 let currentSentence = "";
-let selectedLevel = "medium"; 
-let timeLeft = timeLimit;
+let selectedLevel = "medium"; // Default level
+let timeLeft;
 
-// Elements We need
+// Elements
 const sentenceEl = document.getElementById("sentence");
 const inputEl = document.getElementById("input");
 const messageEl = document.getElementById("message");
@@ -40,8 +40,8 @@ const restartBtn = document.getElementById("restartBtn");
 const levelSelector = document.getElementById("level");
 
 // Sounds
-const winSound = new Audio('winning.mp3');
-const loseSound = new Audio('losing.mp3'); 
+const winSound = new Audio("winning.mp3");
+const loseSound = new Audio("losing.mp3");
 
 // Level Change Event
 levelSelector.addEventListener("change", (e) => {
@@ -60,23 +60,9 @@ function updateGameSettings() {
   }
 }
 
-startBtn.addEventListener("click", () => {
-  document.querySelector(".level-select").style.display = "block";
-  startBtn.textContent = "Start Game";
-
-  if (startBtn.textContent === "Start Game") {
-    startGame();
-    startBtn.textContent = "Start"; // Optional
-  }
-});
-
-levelSelector.addEventListener("change", (e) => {
-  selectedLevel = e.target.value;
-  updateGameSettings();
-});
-// Start of the Game
+// Start Game
 function startGame() {
-  const levelSentences = sentences[selectedLevel]; 
+  const levelSentences = sentences[selectedLevel];
   currentSentence = levelSentences[Math.floor(Math.random() * levelSentences.length)];
   sentenceEl.textContent = currentSentence;
 
@@ -112,14 +98,17 @@ function checkSentence() {
   const typedSentence = inputEl.value.trim();
   if (typedSentence === currentSentence) {
     const endTime = new Date();
-    const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
-    endGame(true, `✅ Correct! You win in ${timeTaken}s`);
+    const totalTime = (endTime - startTime) / 1000; // Total time in seconds
+    const wordCount = currentSentence.split(" ").length;
+    const avgTimePerWord = (totalTime / wordCount).toFixed(2);
+
+    endGame(true, `✅ Correct! You win in ${totalTime.toFixed(2)}s (Avg: ${avgTimePerWord}s/word)`);
   } else {
     messageEl.textContent = `❌ Incorrect! Keep trying!`;
   }
 }
 
-// Highlight Errors
+// Highlight Errors in Input
 inputEl.addEventListener("input", () => {
   const userInput = inputEl.value.trim();
   if (!currentSentence.startsWith(userInput)) {
@@ -129,7 +118,7 @@ inputEl.addEventListener("input", () => {
   }
 });
 
-// End of the Game
+// End Game
 function endGame(win, msg) {
   clearInterval(countdown);
   messageEl.textContent = msg;
@@ -138,13 +127,13 @@ function endGame(win, msg) {
   startBtn.disabled = false;
 
   if (win) {
-    winSound.play(); 
+    winSound.play();
   } else {
-    loseSound.play(); 
+    loseSound.play();
   }
 }
 
-// Restart
+// Restart Game
 function restartGame() {
   sentenceEl.textContent = "Press Start to begin!";
   inputEl.value = "";
@@ -152,18 +141,18 @@ function restartGame() {
   checkBtn.disabled = true;
   restartBtn.disabled = true;
   startBtn.disabled = false;
-  timeEl.textContent = "—";
+  timeEl.textContent = "--";
   messageEl.textContent = "";
   progressEl.style.width = "100%";
   clearInterval(countdown);
-  inputEl.classList.remove("error"); 
+  inputEl.classList.remove("error");
 }
 
-// Events
+// Event Listeners
 startBtn.addEventListener("click", startGame);
 checkBtn.addEventListener("click", checkSentence);
 restartBtn.addEventListener("click", restartGame);
-inputEl.addEventListener("keypress", e => {
+inputEl.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
     checkSentence();
