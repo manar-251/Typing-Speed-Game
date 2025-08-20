@@ -75,8 +75,8 @@ textarea {
   font-size: 16px;
 }
 textarea.error {
-  background-color: red;
-  color: white;
+  background-color: #ffe6e6; /* Soft red background */
+  border: 2px solid #ff4d4d; /* Bright red border */
 }
 .controls button {
   margin: 5px;
@@ -124,11 +124,6 @@ textarea.error {
   font-weight: bold;
   margin-top: 15px;
 }
-
-.level-select {
-  display: none; /* hidden at first */
-  margin-bottom: 15px;
-}
 #level {
   padding: 12px 20px;
   font-size: 16px;
@@ -155,3 +150,4 @@ textarea.error {
   outline: none;
   box-shadow: 0 0 12px rgba(255, 152, 0, 0.7);
 }
+

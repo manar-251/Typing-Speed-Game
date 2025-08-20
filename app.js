@@ -52,21 +52,27 @@ levelSelector.addEventListener("change", (e) => {
 // Update Game Settings Based on Level
 function updateGameSettings() {
   if (selectedLevel === "easy") {
-    timeLimit = 60; // More time for Easy
+    timeLimit = 40; // More time for Easy
   } else if (selectedLevel === "medium") {
     timeLimit = 30; // Default time for Medium
   } else if (selectedLevel === "hard") {
     timeLimit = 15; // Less time for Hard
   }
 }
+
 startBtn.addEventListener("click", () => {
   document.querySelector(".level-select").style.display = "block";
+  startBtn.textContent = "Start Game";
+
+  if (startBtn.textContent === "Start Game") {
+    startGame();
+    startBtn.textContent = "Start"; // Optional
+  }
 });
 
 levelSelector.addEventListener("change", (e) => {
   selectedLevel = e.target.value;
   updateGameSettings();
-  startGame(); 
 });
 // Start of the Game
 function startGame() {
