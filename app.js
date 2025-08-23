@@ -23,9 +23,9 @@ const sentences = {
 };
 
 let startTime, countdown;
-let timeLimit = 30; // Default time limit
+let timeLimit = 30; 
 let currentSentence = "";
-let selectedLevel = "medium"; // Default level
+let selectedLevel = "medium"; 
 let timeLeft;
 
 // Elements
@@ -39,24 +39,24 @@ const checkBtn = document.getElementById("checkBtn");
 const restartBtn = document.getElementById("restartBtn");
 const levelSelector = document.getElementById("level");
 
-// Sounds
-const winSound = new Audio("winning.mp3");
-const loseSound = new Audio("losing.mp3");
+// Sounds (محلية)
+const winSound = new Audio("./sounds/win.mp3");
+const loseSound = new Audio("./sounds/lose.mp3");
 
 // Level Change Event
 levelSelector.addEventListener("change", (e) => {
-  selectedLevel = e.target.value; // Update selected level
+  selectedLevel = e.target.value; 
   updateGameSettings();
 });
 
-// Update Game Settings Based on Level
+// Update Game Settings
 function updateGameSettings() {
   if (selectedLevel === "easy") {
-    timeLimit = 40; // More time for Easy
+    timeLimit = 40; 
   } else if (selectedLevel === "medium") {
-    timeLimit = 30; // Default time for Medium
+    timeLimit = 30; 
   } else if (selectedLevel === "hard") {
-    timeLimit = 15; // Less time for Hard
+    timeLimit = 15; 
   }
 }
 
@@ -98,7 +98,7 @@ function checkSentence() {
   const typedSentence = inputEl.value.trim();
   if (typedSentence === currentSentence) {
     const endTime = new Date();
-    const totalTime = (endTime - startTime) / 1000; // Total time in seconds
+    const totalTime = (endTime - startTime) / 1000; 
     const wordCount = currentSentence.split(" ").length;
     const avgTimePerWord = (totalTime / wordCount).toFixed(2);
 
@@ -108,17 +108,48 @@ function checkSentence() {
   }
 }
 
-// Highlight Errors in Input
+// Highlight Errors
 inputEl.addEventListener("input", () => {
   const userInput = inputEl.value.trim();
   if (!currentSentence.startsWith(userInput)) {
-    inputEl.classList.add("error"); // Add red background for incorrect typing
+    inputEl.classList.add("error"); 
   } else {
-    inputEl.classList.remove("error"); // Remove red background for correct typing
+    inputEl.classList.remove("error"); 
   }
 });
 
-// End Game
+// Confetti
+function launchConfetti() {
+  const duration = 2 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 3,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 }
+    });
+    confetti({
+      particleCount: 3,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+}
+
+// Shake Screen
+function shakeScreen() {
+  document.body.classList.add("shake");
+  setTimeout(() => document.body.classList.remove("shake"), 500);
+}
+
+// End Game (نسخة وحيدة)
 function endGame(win, msg) {
   clearInterval(countdown);
   messageEl.textContent = msg;
@@ -127,9 +158,11 @@ function endGame(win, msg) {
   startBtn.disabled = false;
 
   if (win) {
-    winSound.play();
+    winSound.play().catch(() => console.log("🔇 Sound blocked"));
+    launchConfetti(); 
   } else {
-    loseSound.play();
+    loseSound.play().catch(() => console.log("🔇 Sound blocked"));
+    shakeScreen(); 
   }
 }
 
