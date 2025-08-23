@@ -46,4 +46,30 @@ As a user, I want an option to restart the game so that I can try again with a n
 
 As a user, I want to know if I won or lost based on finishing in time so that I have a clear goal to aim for.
 
+
+
 Pseudocode
+
+Set sentence list (array of sentences for easy, medium, hard)
+When the game starts:
+Show a random sentence on the screen
+Start a timer (depends on difficulty level)
+Let score = 0
+Track total time and word count
+
+
+While time is not over:
+Wait for the player to type
+If input is not matching sentence → highlight error
+If input matches full sentence → stop timer and calculate result
+
+
+When the time is over or sentence is correct:
+Calculate total time
+Calculate average time per word = total time ÷ number of words
+If sentence finished before timer → Show “You Win!” + stats +  PLAY win sound and LAUNCH confetti
+Else → Show “You Lose!” + PLAY lose sound
+
+
+Show restart button
+
